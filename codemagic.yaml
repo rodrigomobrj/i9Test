@@ -63,7 +63,7 @@ workflows:
         - /tmp/xcodebuild_logs/*.log
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-      email:
+    email:
         recipients:
           - rodrigo.alves@mobrj.com.br         
         notify:
