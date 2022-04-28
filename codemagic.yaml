@@ -39,7 +39,7 @@ workflows:
         script: |
                     keychain initialize
       - name: Set up Provisioning profiles from environment variables (Use with manual code signing)
-         script: |
+        script: |
            PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
            mkdir -p "$PROFILES_HOME"
            PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
