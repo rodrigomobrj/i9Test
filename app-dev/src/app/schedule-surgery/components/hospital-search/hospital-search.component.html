@@ -1,0 +1,74 @@
+<app-navbar></app-navbar>
+<app-title title="ESCOLHA O HOSPITAL"></app-title>
+<ion-content class="ion-no-padding">
+  <div class="container-form">
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <input matInput type="text" autocomplete="off" formControlName="hospitalName">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+      <div *ngIf="showFilter">
+        <div class="d-flex ion-justify-content-between ion-align-items-center">
+          <p>Melhores avaliados</p>
+          <mat-slide-toggle color="primary" formControlName="bestRating"></mat-slide-toggle>
+        </div>
+        <div class="ion-margin-top">
+          <ion-grid class="ion-no-padding">
+            <ion-row class="d-flex ion-justify-content-between ion-no-padding">
+              <ion-col size="6">
+                <mat-form-field appearance="outline" class="small">
+                  <mat-label>Data</mat-label>
+                  <input matInput type="text" mask="d0/M0/0000" formControlName="surgeryDate">
+                  <mat-icon matSuffix>calendar_today</mat-icon>
+                </mat-form-field>
+              </ion-col>
+              <ion-col size="6" class="small">
+                <mat-form-field appearance="outline" class="small left">
+                  <mat-label>Horário</mat-label>
+                  <mat-select formControlName="surgeryTime">
+                    <mat-option *ngFor="let surgeryTime of surgeryTimes" [value]="surgeryTime.code">
+                      {{surgeryTime.schedule}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon class="large" matSuffix>keyboard_arrow_down</mat-icon>
+                </mat-form-field>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </div>
+
+      <div class="container-row-icon d-flex ion-justify-content-end">
+        <mat-icon
+          (click)="showFilterMethod()"
+          class="{{showFilter ? 'up-arrow' : 'down-arrow'}}"
+        >arrow_drop_down</mat-icon>
+      </div>
+    </form>
+  </div>
+
+  <div class="container-list">
+    <mat-list *ngIf="!loading">
+      <mat-list-item *ngFor="let hospital of hospitals" (click)="goToPayment(hospital)">
+        <h3 mat-line>
+          {{hospital.name}}
+        </h3>
+        <p mat-line class="d-flex">
+          <span>{{hospital.price | currency: 'BRL'}}</span>
+          <span *ngIf="hospital?.rating"> | </span>
+          <span class="status status-green" *ngIf="hospital?.rating">
+            Nota {{hospital?.rating | number: '1.1-1' : 'en'}}
+          </span>
+        </p>
+        <button mat-icon-button>
+          <mat-icon>arrow_forward_ios</mat-icon>
+        </button>
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+    <div class="d-flex ion-justify-content-center" *ngIf="loading">
+      <app-loading-page></app-loading-page>
+    </div>
+  </div>
+</ion-content>
+

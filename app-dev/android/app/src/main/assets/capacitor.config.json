@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "i9-cirurgias",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

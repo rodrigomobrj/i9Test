@@ -1,0 +1,110 @@
+<app-navbar></app-navbar>
+<app-title title="SEUS DADOS"></app-title>
+<ion-content>
+  <div class="container-space-between">
+    <div>
+      <form [formGroup]="form">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Data de nascimento</mat-label>
+              <input matInput type="text" mask="d0/M0/0000" formControlName="birthDate">
+              <mat-icon matSuffix>calendar_today</mat-icon>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Identidade</mat-label>
+              <input matInput type="text" maxlength="30" formControlName="docNum">
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <mat-form-field appearance="outline">
+              <mat-label>Peso(kg)</mat-label>
+              <input matInput type="text" mask="000,0||00,0" formControlName="weight">
+            </mat-form-field>
+          </ion-col>
+          <ion-col size="6">
+            <mat-form-field appearance="outline">
+              <mat-label>Altura(m)</mat-label>
+              <input matInput type="text" mask="0,00" formControlName="height">
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Sexo</mat-label>
+              <select matNativeControl formControlName="gender">
+                <option value="">- Selecione o seu sexo -</option>
+                <option *ngFor="let gender of genderList" [value]="gender.value">
+                  {{gender.value}}
+                </option>
+              </select>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Escolaridade</mat-label>
+              <select matNativeControl formControlName="education">
+                <option value="">- Selecione um nível de escolaridade -</option>
+                <option *ngFor="let educationLevel of educationLevelList" [value]="educationLevel.value">
+                  {{educationLevel.value}}
+                </option>
+              </select>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Profissão</mat-label>
+              <input type="text" matInput formControlName="occupation" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let occupation of occupations" [value]="occupation.description">
+                  {{occupation.description}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <mat-form-field appearance="outline">
+              <mat-label>Empresa em que trabalha</mat-label>
+              <input matInput type="text" maxlength="150" formControlName="workingAt">
+            </mat-form-field>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      </form>
+    </div>
+    <div>
+      <div>
+        <ion-row>
+          <ion-col>
+            <button mat-stroked-button (click)="back()">Voltar</button>
+          </ion-col>
+          <ion-col>
+            <button mat-flat-button color="primary" [disabled]="form.invalid || disabledLoginButton" (click)="saveForm()">
+              <span *ngIf="!disabledLoginButton">
+                Salvar
+              </span>
+              <span *ngIf="disabledLoginButton">
+                <mat-spinner diameter="30"></mat-spinner>
+              </span>
+            </button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+  </div>
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>

@@ -1,0 +1,28 @@
+<app-modal
+  title="Tudo certo!"
+  titlePrimaryButton="Entendi"
+  (clickPrimaryButton)="toSend()"
+  titleSecondaryButton="Reenviar código"
+  (clickSecondaryButton)="buttonResend.emit()"
+  (hideModal)="hideModal.emit()"
+>
+  <p class="modal-text">
+    Você receberá um código por SMS. Informe o código no campo abaixo
+  </p>
+  <hr/>
+  <p class="modal-text">Insira o código</p>
+  <form [formGroup]="form">
+    <div class="d-flex ion-justify-content-between ion-margin-bottom">
+      <input type="text" maxlength="1" formControlName="numberOne" (input)="goToNextInput('numberOne', numberTwo)">
+      <input #numberTwo maxlength="1" type="text" formControlName="numberTwo" (input)="goToNextInput('numberTwo', numberThree)">
+      <input #numberThree maxlength="1" type="text" formControlName="numberThree" (input)="goToNextInput('numberThree', numberFour)">
+      <input #numberFour maxlength="1" type="text" formControlName="numberFour" (input)="goToNextInput('numberFour', numberFive)">
+      <input #numberFive maxlength="1" type="text" formControlName="numberFive" (input)="goToNextInput('numberFive', null)">
+    </div>
+  </form>
+  <div class="d-flex ion-justify-content-center ion-margin-top" *ngIf="showError">
+    <mat-error>
+      Por favor, preencha todo os campos
+    </mat-error>
+  </div>
+</app-modal>

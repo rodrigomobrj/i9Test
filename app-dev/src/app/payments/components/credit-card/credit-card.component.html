@@ -1,0 +1,104 @@
+<app-navbar></app-navbar>
+<app-title title="PAGAMENTO"></app-title>
+
+<ion-content>
+  <div class="container-space-between">
+    <div>
+      <form [formGroup]="form">
+        <ion-grid class="ion-no-padding">
+
+          <ion-row class="ion-margin-top">
+            <mat-form-field appearance="outline">
+              <mat-label>Número do cartão</mat-label>
+              <input matInput formControlName="cardNumber" mask="0000 0000 0000 0000">
+            </mat-form-field>
+            <mat-error *ngIf="isTouchedAndInvalid('cardNumber')">
+              Campo de preenchimento obrigatório
+            </mat-error>
+          </ion-row>
+
+          <ion-row class="ion-justify-content-between">
+            <ion-col size="6">
+              <mat-form-field appearance="outline" class="small">
+                <mat-label>Data de vencimento</mat-label>
+                <input matInput formControlName="expirationData" mask="00/00" placeholder="MM/AA">
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('expirationData')">
+                Campo de preenchimento obrigatório
+              </mat-error>
+            </ion-col>
+            <ion-col size="6">
+              <mat-form-field appearance="outline" class="small left">
+                <mat-label>CVV</mat-label>
+                <input matInput formControlName="cvv" placeholder="123" maxlength="3">
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('cvv')">
+                Campo de preenchimento obrigatório
+              </mat-error>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+            <mat-form-field appearance="outline">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="cardName" placeholder="nome como está no cartão">
+            </mat-form-field>
+            <mat-error *ngIf="isTouchedAndInvalid('cardName')">
+              Campo de preenchimento obrigatório
+            </mat-error>
+          </ion-row>
+
+          <ion-row>
+            <mat-form-field appearance="outline">
+              <mat-label>País</mat-label>
+              <mat-select formControlName="country">
+                <mat-option *ngFor="let country of listCountries" value="countries">
+                  {{country}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="isTouchedAndInvalid('country')">
+              Campo de preenchimento obrigatório
+            </mat-error>
+          </ion-row>
+          <ion-row>
+            <mat-form-field appearance="outline">
+              <mat-label>Parcelamento</mat-label>
+              <mat-select formControlName="installment">
+                <mat-option *ngFor="let installment of listInstallment" [value]="installment">
+                  {{installment.amount}} {{installment.value | currency: 'BRL'}} {{installment.method}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-error *ngIf="isTouchedAndInvalid('installment')">
+              Campo de preenchimento obrigatório
+            </mat-error>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+    <div>
+      <ion-row class="ion-justify-content-center">
+        <button mat-flat-button color="primary" (click)="send()" [disabled]="form.invalid">Enviar</button>
+      </ion-row>
+    </div>
+  </div>
+
+  <app-modal
+    *ngIf="showModal"
+    title="Confirmação"
+    titlePrimaryButton="Entendi"
+    (clickPrimaryButton)="confirmPayment()"
+    (hideModal)="hideModal()"
+  >
+    <div class="installment-text">
+      <p class="modal-text">Seu pagamento foi parcelado em</p>
+      <p class="text-green">
+        {{selectPaymentMethod?.amount}} {{selectPaymentMethod?.value | currency: 'BRL'}} {{selectPaymentMethod?.method}}
+      </p>
+      <hr class="ion-margin-top ion-margin-bottom">
+      <p class="modal-text">Total parcelado</p>
+      <p class="text-green">{{surgeryPriceMock | currency: 'BRL'}}</p>
+    </div>
+  </app-modal>
+</ion-content>

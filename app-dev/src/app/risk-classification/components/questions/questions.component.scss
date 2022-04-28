@@ -1,0 +1,44 @@
+
+ion-content {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+ion-grid.md.hydrated {
+  padding: 0;
+}
+
+ion-row.md.hydrated {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+.confirm-terms {
+  margin-bottom: 20px;
+  padding-right: 10px;
+}
+
+.btn {
+  background-color: #334B9D;
+  color: #ffffff;
+}
+
+.btn-draft {
+  background-color: transparent;
+  color: #6BB345;
+  border: 1px solid #6BB345;
+}
+
+app-modal {
+
+  p {
+    max-width: 240px;
+    text-align: center;
+    font-size: 12px;
+    color: #999292;
+  }
+}
+
+.p-toggle {
+  width: 100%;
+}

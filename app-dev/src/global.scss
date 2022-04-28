@@ -1,0 +1,235 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+// Themas
+@import "theme/variables";
+
+// Material
+//@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '~@angular/material/theming';
+@include mat-core();
+$light-primary: mat-palette($mat-indigo, 700);
+$light-accent: mat-palette($mat-light-green, 600);
+$light-warn: mat-palette($mat-red);
+$light-theme: mat-light-theme($light-primary, $light-accent, $light-warn);
+@include angular-material-theme($light-theme);
+
+
+.w-100 {
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+body{
+  background-color: white;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.container-content {
+  padding: 15px;
+}
+
+@mixin font-stylus($font-weight, $font-size, $color) {
+  font-weight: $font-weight;
+  font-size: $font-size;
+  font-family: Roboto, sans-serif;
+  color: $color;
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  @include font-stylus(400, 14px, $i9-black);
+}
+
+input {
+  color: $i9-black!important;
+  background-color: white!important;
+}
+
+/* Button */
+
+button[mat-flat-button] {
+  width: 100%;
+  min-height: 40px;
+  min-width: 150px;
+  //max-width: 150px;
+  @include font-stylus(700, 12px, #ffffff);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button[mat-flat-button]:disabled {
+  background-color: $i9-grey-light;
+  color: white!important;
+}
+
+button[mat-stroked-button] {
+  min-height: 40px;
+  width: 100% !important;
+  min-width: 150px;
+  border-radius: 20px !important;
+  color: $i9-grey-light;
+  border: 1px solid $i9-grey-light;
+}
+
+button.button-with-border {
+  color: $i9-secondary-color;
+  border: 1px solid $i9-secondary-color;
+}
+
+.button-link-accent {
+  background-color: transparent;
+  color: $i9-secondary-color;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 7px;
+}
+
+.mat-form-field-label-wrapper {
+  top: -1.4em;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  color: $i9-black;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: #ffffff;
+}
+
+.mat-form-field-label {
+  color: $i9-black;
+}
+
+mat-error {
+  @include font-stylus(400, 12px, #EB5757);
+  margin-top: -15px;
+  margin-bottom: 5px;
+}
+
+.container-space-between {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+ion-content {
+  --padding-end: 20px;
+  --padding-start: 20px;
+  --padding-bottom: 10px;
+  --padding-top: 10px;
+}
+
+.modal-text {
+  color: $i9-grey-dark;
+  text-align: center;
+}
+
+hr, mat-divider {
+  background-color: $i9-grey-dark;
+}
+
+.primary-font-color {
+  color: $i9-primary-color
+}
+
+.secondary-font-color {
+  color: $i9-secondary-color;
+}
+
+.logo-vertical {
+  width: 150px;
+  height: 75px
+}
+
+mat-icon {
+  color: $i9-black;
+}
+
+/*Componente de confirmação - toogle button */
+.confirm-terms {
+  width: 100%;
+  min-width: 330px;
+  min-height: 45px;
+  padding-right: 5px;
+  justify-content: space-between;
+  align-items: center;
+  p{
+    @include font-stylus(400, 12px, #3C3C3C);
+  }
+}
+
+.status{
+  padding: 3px 6px;
+  border-radius: 20px;
+}
+
+.status-blue {
+  background-color: #C0CFFF;
+  @include font-stylus(400, 10px, $i9-primary-color);
+}
+
+.status-green {
+  background-color: #DCFFCA;
+  @include font-stylus(400, 10px, $i9-secondary-color);
+}
+
+.status-purple {
+  background-color: #DEBDFF;
+  @include font-stylus(400, 10px, #8F34EA);
+}
+
+.mat-line {
+  color: $i9-black!important;
+}
+
+ion-label {
+  color: $i9-black!important;
+}
+
+.range-knob {
+  background-color: $i9-primary-color!important;
+}
