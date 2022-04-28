@@ -63,9 +63,3 @@ workflows:
         - /tmp/xcodebuild_logs/*.log
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-    email:
-        recipients:
-          - rodrigo.alves@mobrj.com.br         
-        notify:
-          success: true     # To not receive a notification when a build succeeds
-          failure: true     # To not receive a notification when a build fails
