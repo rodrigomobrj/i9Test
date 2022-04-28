@@ -30,10 +30,10 @@ workflows:
                     npm install
       - name: Cocoapods installation
         script: |
-                    cd ios/App && pod install
+                    cd app-dev/ios/App && pod install
       - name: Update dependencies and copy web assets to native project
         script: |
-           npx cap copy # <- use this is you don't need to update native dependencies
+            npx cap copy # <- use this is you don't need to update native dependencies
          # npx cap sync # <- update native dependencies and copy web assets to native project          
       - name: Set up keychain to be used for code signing using Codemagic CLI 'keychain' command
         script: |
@@ -43,7 +43,7 @@ workflows:
            PROFILES_HOME="$HOME/Library/MobileDevice/Provisioning Profiles"
            mkdir -p "$PROFILES_HOME"
            PROFILE_PATH="$(mktemp "$PROFILES_HOME"/$(uuidgen).mobileprovision)"
-           echo ${CM_PROVISIONING_PROFILE} | base64 --decode > "$PROFILE_PATH"
+           echo ${CM_PROVISIONING_PROFILE} > "$PROFILE_PATH"
            echo "Saved provisioning profile $PROFILE_PATH"
     #  - name: Fetch signing files
      #   script: |
