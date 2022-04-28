@@ -1,0 +1,106 @@
+<app-navbar></app-navbar>
+<app-title title="MINHAS CIRURGIAS"></app-title>
+<ion-content>
+  <p *ngIf="surgeryAppointmentList.length == 0">
+    Você ainda não tem cirurgias agendas ou realizadas
+  </p>
+  <mat-list>
+    <div *ngFor="let surgeryAppointment of surgeryAppointmentList">
+      <div (click)="showDetail(surgeryAppointment.code)">
+        <div class="container-title">
+          <span class="title-font" *ngIf="surgeryAppointment?.surgery?.name">
+            {{ surgeryAppointment?.surgery?.name }}
+          </span>
+          <span class="font-default" *ngIf="surgeryAppointment?.lastStatusModificationDate">
+            {{surgeryAppointment?.lastStatusModificationDate | date: 'dd/MM/yyyy'}}
+          </span>
+        </div>
+        <div class="surgeon-status-container">
+          <span class="font-default" style="margin-right: 5px" *ngIf="surgeryAppointment?.surgeon?.fullName">
+            {{surgeryAppointment?.surgeon?.fullName}}
+          </span>
+          <app-status
+            *ngIf="surgeryAppointment?.status"
+            [color]="getColorStatus(surgeryAppointment?.status)"
+            [value]="getLabelStatus(surgeryAppointment?.status)"
+          ></app-status>
+        </div>
+        <div class="container-hospital" *ngIf="surgeryAppointment?.hospital?.name">
+          <mat-icon class="location-icon">location_on</mat-icon>
+          <span class="font-default">
+            {{surgeryAppointment?.hospital?.name}}
+          </span>
+        </div>
+      </div>
+      <div class="container-button" *ngIf="surgeryAppointment?.status == statusEnum.stepOne">
+        <button
+          mat-raised-button color="accent"
+          (click)="goToNextScreen(surgeryAppointment)"
+        >
+          Completar Cadastro
+        </button>
+      </div>
+      <div class="container-button" *ngIf="surgeryAppointment?.status == statusEnum.stepTwo">
+        <button mat-raised-button color="accent" (click)="goToNextScreen(surgeryAppointment)">
+          Agendar consulta online
+        </button>
+      </div>
+      <div class="container-button" *ngIf="surgeryAppointment?.status == statusEnum.stepFive">
+        <button mat-raised-button color="accent" (click)="scheduleAppointmentInPerson(surgeryAppointment)">
+          Agendar consulta presencial
+        </button>
+      </div>
+      <div class="container-button" *ngIf="surgeryAppointment?.status == statusEnum.stepEight">
+        <button mat-raised-button color="accent" (click)="scheduleSurgery(surgeryAppointment)">
+          Agendar Cirurgia
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+    </div>
+  </mat-list>
+  <div class="container-btn-new-surgery d-flex">
+    <button mat-flat-button color="primary" class="btn-new-surgery" (click)="goToNewSurgery()">
+      Nova cirurgia
+    </button>
+  </div>
+  <div class="container-margin-top"></div>
+
+  <app-modal
+    *ngIf="evaluationModal"
+    title="Avalie sua cirurgia"
+    titlePrimaryButton="Confirmar"
+    (clickPrimaryButton)="confirm()"
+    (hideModal)="hideModal()"
+  >
+    <div class="surgery-rating d-flex ion-align-items-center">
+      <div class="main-rating d-flex ion-margin-bottom">
+        <p>{{ratingDisplayed[mainEvaluation]}}</p>
+        <app-evaluation-stars
+          [isStarLarge]="true"
+          [value]="mainEvaluation"
+          class="ion-margin-top"
+          (starSelect)="toEvalueteSurgery($event)">
+        </app-evaluation-stars>
+      </div>
+      <div class="evaluation-params" *ngIf="evalueteParams">
+        <ion-row *ngFor="let param of evaluationParams, let i = index" class="ion-justify-content-between">
+          <ion-col size="4" class="d-flex ion-justify-content-end ion-no-padding-bottom">
+            <p>{{evaluationParams[i]}}</p>
+          </ion-col>
+          <ion-col size="8" class="d-flex ion-justify-content-start ion-no-padding-bottom">
+            <app-evaluation-stars
+              [isStarLarge]="false"
+              (starSelect)="toEvalueteParams($event, i)"
+              class="ion-margin-bottom">
+            </app-evaluation-stars>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div class="container-maximum-rating" *ngIf="maximumRating">
+          <img src="../../../../assets/icon/Vector2.png">
+      </div>
+    </div>
+  </app-modal>
+
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>

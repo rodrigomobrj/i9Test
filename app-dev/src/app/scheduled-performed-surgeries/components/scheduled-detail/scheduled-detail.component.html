@@ -1,0 +1,19 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="patient/{{surgeryId}}" [class.active-button]="selectedPath.includes('patient')">
+      <ion-label [class.active-label]="selectedPath.includes('patient')">
+        Paciente
+      </ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="nurse/{{surgeryId}}" [class.active-button]="selectedPath.includes('nurse')">
+      <ion-label [class.active-label]="selectedPath.includes('nurse')">
+        Enfermeiro
+      </ion-label>
+    </ion-tab-button>
+    <ion-tab-button tab="doctor/{{surgeryId}}" [class.active-button]="selectedPath.includes('doctor')">
+      <ion-label [class.active-label]="selectedPath.includes('doctor')">
+        Médico
+      </ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

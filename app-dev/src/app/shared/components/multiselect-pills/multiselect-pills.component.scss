@@ -1,0 +1,21 @@
+.input-autocomplete {
+  width: 100%;
+}
+
+.items-selected-chip {
+  padding: 2px 5px;
+  padding-bottom: 3px;
+  min-height: 20px;
+
+  .chip-remove-button {
+    font-weight: bold;
+    font-size: 15px;
+    width: 15px;
+    height: 15px;
+    margin-left: 5px;
+  }
+
+  .text-chip {
+    font-weight: normal;
+  }
+}

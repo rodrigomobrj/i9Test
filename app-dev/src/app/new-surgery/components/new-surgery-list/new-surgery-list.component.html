@@ -1,0 +1,28 @@
+<app-navbar></app-navbar>
+<app-title title="ESCOLHA SUA CIRURGIA">
+  <mat-form-field appearance="outline">
+    <input matInput type="text" [formControl]="nameSurgery" autocomplete="off">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</app-title>
+<ion-content>
+  <div class="container-content" *ngIf="!loading">
+      <mat-list>
+        <mat-list-item *ngFor="let surgery of surgeries" (click)="showDetail(surgery.code)">
+          <h3 mat-line> {{ surgery.name }}</h3>
+          <p mat-line class="d-flex">
+            <span>{{ surgery.type }} </span> |
+            <span>A partir de {{ surgery.minPrice | currency: 'BRL'}}</span>
+          </p>
+            <button mat-icon-button>
+              <mat-icon>arrow_forward_ios</mat-icon>
+            </button>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+  </div>
+  <div class="d-flex ion-justify-content-center">
+    <mat-spinner *ngIf="loading" diameter="50"></mat-spinner>
+  </div>
+</ion-content>
+

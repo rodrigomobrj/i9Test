@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<app-title title="AGENDE SUA CONSULTA ONLINE">
+  <ion-row>
+    <ion-col>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" mask="d0/M0/0000" [formControl]="dateControl">
+        <mat-icon matSuffix>calendar_today</mat-icon>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+</app-title>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-row class="ion-margin-top">
+      <ng-container formArrayName="hourList" *ngFor="let hourGroup of form.get('hourList')['controls']; let i = index;">
+        <ng-container [formGroupName]="i">
+          <ion-col class="ion-margin-bottom">
+            <label for="hour={{i}}" [class]="hourGroup.value.boolean ? 'activated' : ''" (click)="falseInAllLabel(i)">
+              {{hourGroup.value.hour.schedule}}
+            </label>
+            <input id="hour={{i}}" formControlName="boolean" type="checkbox" style="display: none">
+          </ion-col>
+        </ng-container>
+      </ng-container>
+    </ion-row>
+    <div class="container-button">
+      <button mat-flat-button color="primary" (click)="openModal()" [disabled]="form.invalid || dateControl.invalid || disabledLoginButton">
+        <span *ngIf="!disabledLoginButton">
+          Continuar
+        </span>
+        <span *ngIf="disabledLoginButton">
+            <mat-spinner diameter="30"></mat-spinner>
+          </span>
+      </button>
+    </div>
+  </form>
+  <app-modal
+    *ngIf="showModal"
+    title="Confirmação"
+    titleButton="Confirmar agendamento"
+    (eventButton)="sendHour()"
+  >
+    <p class="modal-text">  Você está agendando a consulta online para a seguinte data:</p>
+    <p class="modal-text modal-text-date">{{payload?.scheduleDate | date: 'dd/MM/yyyy'}} às {{getHourSelected()?.schedule}}</p>
+    <p class="modal-text">Deseja prosseguir?</p>
+    <p class="modal-text modal-text-alert" (click)="showModal = false">
+      Voltar para a tela de agendamento
+    </p>
+  </app-modal>
+</ion-content>

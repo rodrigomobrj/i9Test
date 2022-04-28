@@ -1,0 +1,48 @@
+<app-navbar></app-navbar>
+<app-title [title]="title">
+  <ion-row>
+    <ion-col>
+      <mat-form-field appearance="outline">
+        <input matInput type="text" mask="d0/M0/0000" [formControl]="dateControl">
+        <mat-icon matSuffix>calendar_today</mat-icon>
+      </mat-form-field>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col>
+      <mat-error *ngIf="isTouchedAndInvalid()">
+        Por favor, informe uma data maior que hoje.
+      </mat-error>
+    </ion-col>
+  </ion-row>
+</app-title>
+<ion-content>
+  <app-tag-hour
+    [hourList]="hourList"
+    (isValid)="hourIsValidEvent($event)"
+    (valueChanges)="hourValueChanges($event)"
+    [haveTime]="haveTime"
+  ></app-tag-hour>
+  <div class="container-button">
+    <button mat-flat-button color="primary" (click)="openModal()" [disabled]="!hourIsValid || dateControl.invalid || disabledLoginButton">
+      <span *ngIf="!disabledLoginButton">
+        Continuar
+      </span>
+      <span *ngIf="disabledLoginButton">
+          <mat-spinner diameter="30"></mat-spinner>
+        </span>
+    </button>
+  </div>
+</ion-content>
+<app-modal
+  *ngIf="showModal"
+  title="Confirmação"
+  titlePrimaryButton="Confirmar agendamento"
+  titleSecondaryButton="Voltar para a tela de agendamento"
+  (clickPrimaryButton)="sendHour()"
+  (clickSecondaryButton)="showModal = false"
+>
+  <p class="modal-text">{{textModal}}</p>
+  <p class="modal-text modal-text-date">{{parseDateToBackUtil(this.dateControl.value) | date: 'dd/MM/yyyy'}} às {{hourValue?.schedule}}</p>
+  <p class="modal-text">Deseja prosseguir?</p>
+</app-modal>

@@ -1,0 +1,131 @@
+<app-navbar></app-navbar>
+<app-title title="DETALHE DA CIRURGIA"></app-title>
+<ion-content>
+  <div *ngIf="!loading">
+    <ion-row *ngIf="surgeryAppointment?.surgery?.name">
+      <ion-col>
+        <span class="title-detail">Nome da cirurgia</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.surgery?.name}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.status">
+      <ion-col>
+        <span class="title-detail">Status da cirurgia</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <app-status
+          [color]="getColorStatus(surgeryAppointment?.status)"
+          [value]="getLabelStatus(surgeryAppointment?.status)"
+        ></app-status>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.hospital?.name">
+      <ion-col>
+        <span class="title-detail">Hospital</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.hospital?.name}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.surgeon?.fullName">
+      <ion-col>
+        <span class="title-detail">Médico responsável</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.surgeon?.fullName}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.price">
+      <ion-col>
+        <span class="title-detail">Valor da cirurgia</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.price | currency: 'BRL'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.patient?.fullName">
+      <ion-col>
+        <span class="title-detail">Nome</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.patient?.fullName}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.birthDate">
+      <ion-col>
+        <span class="title-detail">Data de nascimento</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.birthDate | date: 'dd/MM/yyyy'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.weight && surgeryAppointment?.height">
+      <ion-col>
+        <span class="title-detail">IMC</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.weight / (surgeryAppointment?.height * surgeryAppointment?.height) | number: '1.1-1'}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <span class="title-detail">Atividade física regular</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span *ngIf="patientDoRegularActivity">Sim</span>
+        <span *ngIf="!patientDoRegularActivity">Não</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.bloodGroup">
+      <ion-col>
+        <span class="title-detail">Tipo sanguíneo</span>
+      </ion-col>
+      <ion-col class="text-detail">
+        <span>{{surgeryAppointment?.bloodGroup}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="surgeryAppointment?.riskRatings?.length > 0">
+      <ion-col>
+        <span class="title-detail">Comorbidades</span>
+      </ion-col>
+    </ion-row>
+    <ul *ngIf="surgeryAppointment?.riskRatings?.length > 0">
+      <ng-container *ngFor="let risk of surgeryAppointment?.riskRatings">
+        <li class="item-detail" *ngIf="risk.description != 'Atividade fisica Regulares'">
+          {{risk.description}}
+        </li>
+      </ng-container>
+    </ul>
+    <hr *ngIf="surgeryAppointment?.riskRatings?.length > 0">
+    <ion-row *ngIf="surgeryAppointment?.medications?.length > 0">
+      <ion-col>
+        <span class="title-detail">Medicamentos</span>
+      </ion-col>
+    </ion-row>
+    <ul *ngIf="surgeryAppointment?.medications?.length > 0">
+      <ng-container *ngFor="let medication of surgeryAppointment?.medications">
+        <li class="item-detail">
+          {{medication.description}}
+        </li>
+      </ng-container>
+    </ul>
+    <hr *ngIf="surgeryAppointment?.medications?.length > 0">
+    <ion-row *ngIf="surgeryAppointment?.allergies?.length > 0">
+      <ion-col>
+        <span class="title-detail">Alergias</span>
+      </ion-col>
+    </ion-row>
+    <ul *ngIf="surgeryAppointment?.allergies?.length > 0">
+      <ng-container *ngFor="let allergy of surgeryAppointment?.allergies">
+        <li class="item-detail">
+          {{allergy.description}}
+        </li>
+      </ng-container>
+    </ul>
+    <hr *ngIf="surgeryAppointment?.allergies?.length > 0">
+  </div>
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>
+

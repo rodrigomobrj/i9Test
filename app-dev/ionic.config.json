@@ -1,0 +1,8 @@
+{
+  "name": "i9-cirurgias",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}

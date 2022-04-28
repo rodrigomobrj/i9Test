@@ -1,0 +1,15 @@
+@import 'src/global.scss';
+.title {
+  background-color: #F2F2F2;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  padding: 0 20px;
+
+  span {
+    @include font-stylus(400, 12px, #3C3C3C);
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+

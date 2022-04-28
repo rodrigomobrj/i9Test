@@ -1,0 +1,51 @@
+<app-navbar></app-navbar>
+<app-title title="DETALHE DA CIRURGIA"></app-title>
+<ion-content>
+  <div *ngFor="let medicalReport of medicalReportList">
+    <ion-row *ngIf="medicalReport?.note">
+      <ion-col>
+        <span class="title-detail">CID do paciente</span>
+      </ion-col>
+      <ion-col class="text-detail-end">
+        <span>{{medicalReport?.patientDIC}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="medicalReport?.note">
+      <ion-col>
+        <span class="title-detail">Código TUSS</span>
+      </ion-col>
+      <ion-col class="text-detail-end">
+        <span>{{medicalReport?.tsuCode}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="medicalReport?.note">
+      <ion-col class="text-detail">
+        <span class="text-detail-start">Anotações</span>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="medicalReport?.note">
+      <ion-col>
+        <p class="text-answer">{{medicalReport?.note}}</p>
+      </ion-col>
+    </ion-row>
+    <hr>
+    <ion-row *ngIf="medicalReport?.previousHospitalization?.length > 0">
+      <ion-col class="text-detail">
+        <span class="text-detail-start">Internações prévias</span>
+      </ion-col>
+    </ion-row>
+    <ng-container *ngFor="let previousHospitalization of medicalReport?.previousHospitalization">
+      <ion-row>
+        <ion-col class="text-detail">
+          <span class="text-title">{{previousHospitalization?.name}}</span>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col class="text-detail-start">
+          <span>{{previousHospitalization?.description}}</span>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+  </div>
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>

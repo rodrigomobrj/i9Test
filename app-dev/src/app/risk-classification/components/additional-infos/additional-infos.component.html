@@ -1,0 +1,76 @@
+<app-navbar></app-navbar>
+<app-title title="INFORMAÇÕES ADICIONAIS"></app-title>
+<ion-content>
+  <div class="container-space-between">
+    <div class="container-content">
+      <form class="form" [formGroup]="form">
+        <div class="form-content">
+          <ion-row class="slide-toggle-container ion-justify-content-between">
+            <label>Usa remédios de uso regular</label>
+            <mat-slide-toggle [checked]="useMedicationsValue" (toggleChange)="useMedicationsToggle()" color="primary"></mat-slide-toggle>
+          </ion-row>
+          <ion-row class="ion-padding-top">
+            <ng-container formArrayName="useMedications">
+              <app-multiselect-pills
+                [label]="'Remédios de uso regular'"
+                [backgroundColorChip]="'#DCFFCA'"
+                [textColorChip]="'#6BB345'"
+                [iconColorChip]="'#6BB345'"
+                [displayWith]="'description'"
+                [primaryKey]="'code'"
+                [autoCompleteOptions]="useMedicationsList"
+                *ngFor="let control of useMedications.controls; let index = index" [formControlName]="index"></app-multiselect-pills>
+            </ng-container>
+          </ion-row>
+        </div>
+        <div class="form-content">
+          <ion-row class="slide-toggle-container ion-justify-content-between">
+            <label>Possui alergia</label>
+            <mat-slide-toggle [checked]="haveAllergiesValue" (toggleChange)="haveAllergiesToggle()" color="primary"></mat-slide-toggle>
+          </ion-row>
+          <ion-row>
+            <ng-container formArrayName="haveAllergies">
+              <app-multiselect-pills
+                [label]="'Alergias'"
+                [backgroundColorChip]="'#DCFFCA'"
+                [textColorChip]="'#6BB345'"
+                [iconColorChip]="'#6BB345'"
+                [displayWith]="'description'"
+                [primaryKey]="'code'"
+                [autoCompleteOptions]="allergiesList"
+                *ngFor="let control of haveAllergies.controls; let index = index" [formControlName]="index"></app-multiselect-pills>
+            </ng-container>
+          </ion-row>
+        </div>
+        <div class="form-content">
+          <app-upload-file (emitError)="uploadFileError($event)" formControlName="files"></app-upload-file>
+        </div>
+      </form>
+    </div>
+    <div class="ion-margin-top">
+      <ion-row class="ion-justify-content-between">
+        <div class="d-flex ion-justify-content-center">
+          <button mat-flat-button class="btn-draft button-with-border mat-elevation-z2" (click)="saveDraft()">Salvar Rascunho</button>
+        </div>
+        <div class="d-flex ion-justify-content-center">
+          <button mat-flat-button class="btn" color="primary" [disabled]="form.invalid" (click)="saveRisk()">Enviar</button>
+        </div>
+      </ion-row>
+    </div>
+  </div>
+
+  <app-modal
+    *ngIf="modalVisible"
+    title="Parabéns"
+    (clickPrimaryButton)="backToHome()"
+    titlePrimaryButton="Voltar para início"
+  >
+    <p class="modal-text">
+      Você completou o questionário e esta apto a realizar
+      a consulta online com o enfermeiro da I9. Tenha em
+      mãos todos os seus exames nós irems lhe ligar
+      no horário marcado.
+    </p>
+  </app-modal>
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>

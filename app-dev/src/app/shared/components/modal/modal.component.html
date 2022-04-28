@@ -1,0 +1,21 @@
+<div class="modal-background" (click)="hideModalMethod($event)">
+  <div class="modal">
+    <div class="modal-body">
+      <div class="modal-box-title">
+        <p class="modal-title">{{title}}</p>
+      </div>
+      <ng-content></ng-content>
+      <div class="container-button-modal">
+        <button *ngIf="titleSecondaryButton" class="secondary-button" mat-stroked-button (click)="clickSecondaryButton.emit()">
+          {{titleSecondaryButton}}
+        </button>
+        <button *ngIf="modalVersion == 2" mat-flat-button color="primary" (click)="clickPrimaryButton.emit()">
+          {{titlePrimaryButton}}
+        </button>
+      </div>
+    </div>
+    <button *ngIf="modalVersion == 1" class="button-footer" (click)="clickPrimaryButton.emit()">
+      {{titlePrimaryButton}}
+    </button>
+  </div>
+</div>

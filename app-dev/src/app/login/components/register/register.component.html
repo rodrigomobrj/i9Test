@@ -1,0 +1,89 @@
+<ion-content>
+  <div class="container-space-between">
+    <div>
+      <div class="container-logo">
+        <img class="logo-vertical" src="assets/image/i9cirurgias_logo_vertical.png">
+      </div>
+      <div>
+        <form [formGroup]="form">
+          <ion-grid>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Nome Completo</mat-label>
+                <input formControlName="fullName" matInput type="text" >
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('fullName')">
+                Campo é de preenchimento obrigatório
+              </mat-error>
+            </ion-row>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Telefone</mat-label>
+                <input formControlName="phone" matInput mask="(00) 00000-0000" placeholder="(00) 00000-0000" type="text">
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('phone')">
+                Campo é de preenchimento obrigatório
+              </mat-error>
+            </ion-row>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>E-mail</mat-label>
+                <input formControlName="email" matInput placeholder="exemplo@exemplo.com" type="email">
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('email')">
+                Campo é de preenchimento obrigatório
+              </mat-error>
+            </ion-row>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Confirmar E-mail</mat-label>
+                <input formControlName="emailConfirm" matInput placeholder="exemplo@exemplo.com" type="email">
+              </mat-form-field>
+              <mat-error *ngIf="form.errors?.comparingEmailError && form.get('emailConfirm').touched">
+                E-mails informados não conferem. Tente novamente
+              </mat-error>
+            </ion-row>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Senha</mat-label>
+                <input formControlName="password" matInput type="password" maxlength="20">
+              </mat-form-field>
+              <mat-error *ngIf="isTouchedAndInvalid('password')">
+                Sua senha deve ter de 8 a 20 caracteres, com pelo menos 1 maiúsculo, 1 minúsculo, 1 número e 1 símbolo (@!#$%.-_&*)
+              </mat-error>
+            </ion-row>
+            <div *ngIf="form.get('password').touched" [style]="form.get('password').valid ? 'margin-top: -10px' : 'margin-top: 0px'" class="ion-margin-bottom">
+              <app-weak-password [isStrongPassword]="form.get('password').valid"></app-weak-password>
+            </div>
+            <ion-row>
+              <mat-form-field appearance="outline">
+                <mat-label>Confirme a sua senha</mat-label>
+                <input formControlName="passwordConfirm" matInput type="password" maxlength="20">
+              </mat-form-field>
+              <mat-error *ngIf="form.errors?.comparingPasswordError && form.get('passwordConfirm').touched">
+                Senhas informadas não conferem. Tente novamente
+              </mat-error>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </div>
+    <div>
+      <ion-row>
+        <ion-col>
+          <div class="d-flex ion-justify-content-center">
+            <button mat-stroked-button routerLink="">Voltar</button>
+          </div>
+        </ion-col>
+        <ion-col>
+          <div class="d-flex ion-justify-content-center">
+            <button mat-flat-button color="primary" (click)="saveForm()" [disabled]="form.invalid">
+              Continuar
+            </button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</ion-content>
+

@@ -1,0 +1,19 @@
+<mat-form-field appearance="outline">
+  <mat-label>{{label}}</mat-label>
+  <input class="input-autocomplete" matInput type="text" [formControl]="formControl" [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="add($event)" [displayWith]="displayView">
+    <mat-option *ngFor="let option of autoComplete$ | async" [value]="option">
+      {{option[displayWith]}}
+    </mat-option>
+  </mat-autocomplete>
+  <mat-icon matSuffix>{{iconInput}}</mat-icon>
+</mat-form-field>
+<div class="pills-container" *ngIf="itemsSelected?.length">
+  <mat-chip-list #chipList>
+    <mat-chip class="items-selected-chip" *ngFor="let item of itemsSelected" (click)="remove(item)" selected
+    [ngStyle]="{'background-color': backgroundColorChip}">
+      <span class="text-chip" [ngStyle]="{'color': textColorChip}">{{item[displayWith]}}</span>
+      <mat-icon class="chip-remove-button" [ngStyle]="{'color': iconColorChip}">{{iconChip}}</mat-icon>
+    </mat-chip>
+  </mat-chip-list>
+</div>

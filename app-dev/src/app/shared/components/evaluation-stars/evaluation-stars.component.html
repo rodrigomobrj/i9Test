@@ -1,0 +1,13 @@
+<div class="stars">
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+      <ion-col class="evaluation" *ngFor="let star of stars; let i = index" (click)="toEvaluete(i)">
+          <ion-icon
+            [ngClass]="{'starLarge': isStarLarge == true, 'starSmall': isStarLarge == false}"
+            [name]="star"
+          ></ion-icon>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+

@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="container-space-between">
+    <div>
+      <div class="card-text">
+        <h3 class="title">Seja bem-vindo(a) ao app da i9cirurgias!</h3>
+        <div class="text-content">
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae mollis turpis. Suspendisse vel lorem ligula. Aliquam vel iaculis ipsum. Vivamus pretium, ligula eu convallis tristique, dui nisl aliquet ante, vel dapibus lorem leo eget orci. Donec aliquet mauris leo, in maximus turpis ullamcorper vel. Maecenas nec congue libero, in placerat diam. Cras eu erat tempor lacus porta convallis sit amet nec odio. Duis in mauris eu ante lacinia sodales nec eu justo.</p>
+          <p> Vestibulum eget justo egestas, LINK leo nec, elementum ex. Cras vel arcu et libero lacinia pellentesque. Nullam dapibus neque vitae est sodales eleifend. Nam nunc tortor, iaculis id iaculis vitae, ullamcorper vel lacus. Duis lobortis suscipit mi quis lacinia. Curabitur volutpat quis leo nec placerat. Etiam eget velit mi. LINK purus enim, gravida ac arcu a, maximus ultricies ex. Fusce nisl lorem, varius eu lectus eget, aliquet sagittis leo.</p>
+        </div>
+        <hr>
+      </div>
+
+      <div class="confirm-terms d-flex ion-justify-content-between ion-align-items-center">
+        <p>Li e concordo com a política de privacidade</p>
+        <mat-slide-toggle color="primary" [(ngModel)]="termUserData"></mat-slide-toggle>
+      </div>
+      <div class="confirm-terms d-flex ion-justify-content-between ion-align-items-center">
+        <p>Li e concordo com o termo de uso dos dados</p>
+        <mat-slide-toggle color="primary" [(ngModel)]="termUserPrivacy"></mat-slide-toggle>
+      </div>
+    </div>
+    <div class="d-flex ion-justify-content-center ion-margin-top">
+      <button mat-flat-button color="primary" (click)="createPerson()" [disabled]="!termUserData||!termUserPrivacy">Confirmar</button>
+    </div>
+  </div>
+  <div *ngIf="modalConfirm">
+    <app-modal-sms
+      (buttonSend)="confirmCode($event)"
+      (buttonResend)="resendSms()"
+    ></app-modal-sms>
+  </div>
+  <app-loading-page *ngIf="loading"></app-loading-page>
+</ion-content>
