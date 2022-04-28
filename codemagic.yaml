@@ -51,14 +51,7 @@ workflows:
        #   app-store-connect fetch-signing-files $(xcode-project detect-bundle-id) --type IOS_APP_STORE --create          
       - name: Add certificates to keychain
         script: |
-                    keychain add-certificates
-     # - name: Increment build number
-      #  script: |
-       #   #!/bin/sh
-        #  set -e
-         # set -x
-        #  cd $CM_BUILD_DIR/ios/App
-         # agvtool new-version -all $(($BUILD_NUMBER +1))          
+                    keychain add-certificates       
       - name: Set up code signing settings on Xcode project
         script: |
                     xcode-project use-profiles
@@ -70,15 +63,9 @@ workflows:
         - /tmp/xcodebuild_logs/*.log
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
         - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
-  #  publishing:
-   #   app_store_connect:
-    #      api_key: $APP_STORE_CONNECT_PRIVATE_KEY      # Contents of the API key
-     #     key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER    # Alphanumeric value that identifies the API key
-      #    issuer_id: $APP_STORE_CONNECT_ISSUER_ID      # Alphanumeric value that identifies who created the API key
-       #   submit_to_testflight: true        # Optional boolean, defaults to false. Whether or not to submit the uploaded build to TestFlight to automatically enroll your build to beta testers.  
       email:
         recipients:
           - rodrigo.alves@mobrj.com.br         
         notify:
-          success: false     # To not receive a notification when a build succeeds
-          failure: false     # To not receive a notification when a build fails
+          success: true     # To not receive a notification when a build succeeds
+          failure: true     # To not receive a notification when a build fails
